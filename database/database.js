@@ -1,4 +1,4 @@
-// database/database.js - CÓDIGO COMPLETO E ATUALIZADO (SEM COMENTÁRIOS EXTRAS)
+// database/database.js - CÓDIGO COMPLETO E FINAL (SEM CONSOLE.LOGS)
 import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase('quiz.db');
@@ -10,12 +10,12 @@ export const initDatabase = () => {
         'CREATE TABLE IF NOT EXISTS questions (id INTEGER PRIMARY KEY AUTOINCREMENT, question TEXT, optionA TEXT, optionB TEXT, optionC TEXT, optionD TEXT, correctAnswer TEXT);',
         [],
         () => {
-          console.log('Tabela "questions" verificada/criada.');
+          // console.log('Tabela "questions" verificada/criada.'); // REMOVIDO
           tx.executeSql(
             'CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT, playerName TEXT, score INTEGER, date TEXT);',
             [],
             () => {
-              console.log('Tabela "scores" verificada/criada.');
+              // console.log('Tabela "scores" verificada/criada.'); // REMOVIDO
               resolve();
             },
             (_, error) => {
@@ -41,87 +41,57 @@ export const populateQuestions = () => {
         [],
         (_, result) => {
           if (result.rows.item(0).count === 0) {
-            console.log('Nenhuma pergunta existente, populando novamente.');
+            // console.log('Nenhuma pergunta existente, populando novamente.'); // REMOVIDO
 
             const questionsToInsert = [
               {
                 question: "Qual sistema operacional é mais comum em dispositivos embarcados de baixo custo?",
-                optionA: "Android",
-                optionB: "iOS",
-                optionC: "Linux Embarcado",
-                optionD: "Windows Mobile",
+                optionA: "Android", optionB: "iOS", optionC: "Linux Embarcado", optionD: "Windows Mobile",
                 correctAnswer: "Linux Embarcado"
               },
               {
                 question: "Qual protocolo é frequentemente usado para comunicação sem fio em dispositivos IoT (Internet das Coisas)?",
-                optionA: "HTTP",
-                optionB: "FTP",
-                optionC: "MQTT",
-                optionD: "SMTP",
+                optionA: "HTTP", optionB: "FTP", optionC: "MQTT", optionD: "SMTP",
                 correctAnswer: "MQTT"
               },
               {
                 question: "Qual componente é o 'cérebro' de um sistema embarcado, responsável por executar as instruções?",
-                optionA: "Memória RAM",
-                optionB: "Processador (CPU/MCU)",
-                optionC: "Sensor",
-                optionD: "Atuador",
+                optionA: "Memória RAM", optionB: "Processador (CPU/MCU)", optionC: "Sensor", optionD: "Atuador",
                 correctAnswer: "Processador (CPU/MCU)"
               },
               {
                 question: "Qual das opções a seguir NÃO é um exemplo comum de dispositivo embarcado?",
-                optionA: "Máquina de lavar roupa",
-                optionB: "Smartwatch",
-                optionC: "Servidor de data center",
-                optionD: "Roteador Wi-Fi",
+                optionA: "Máquina de lavar roupa", optionB: "Smartwatch", optionC: "Servidor de data center", optionD: "Roteador Wi-Fi",
                 correctAnswer: "Servidor de data center"
               },
               {
                 question: "Qual linguagem de programação é amplamente utilizada para desenvolver firmware em sistemas embarcados?",
-                optionA: "Python",
-                optionB: "Java",
-                optionC: "C/C++",
-                optionD: "JavaScript",
+                optionA: "Python", optionB: "Java", optionC: "C/C++", optionD: "JavaScript",
                 correctAnswer: "C/C++"
               },
               {
                 question: "O que significa a sigla RTOS em sistemas embarcados?",
-                optionA: "Real-Time Operating System",
-                optionB: "Remote Terminal Operating System",
-                optionC: "Routine Task Optimization System",
-                optionD: "Robust Technology Operating Solution",
+                optionA: "Real-Time Operating System", optionB: "Remote Terminal Operating System", optionC: "Routine Task Optimization System", optionD: "Robust Technology Operating Solution",
                 correctAnswer: "Real-Time Operating System"
               },
               {
                 question: "Qual tecnologia de comunicação sem fio tem maior alcance e é usada em redes de área ampla para IoT?",
-                optionA: "Bluetooth",
-                optionB: "NFC",
-                optionC: "LoRaWAN",
-                optionD: "Wi-Fi",
+                optionA: "Bluetooth", optionB: "NFC", optionC: "LoRaWAN", optionD: "Wi-Fi",
                 correctAnswer: "LoRaWAN"
               },
               {
                 question: "Qual é a principal característica de um sistema embarcado em tempo real (real-time)?",
-                optionA: "Processamento de dados em alta velocidade",
-                optionB: "Garantia de que as tarefas sejam concluídas dentro de prazos específicos",
-                optionC: "Capacidade de executar múltiplos sistemas operacionais",
-                optionD: "Baixo consumo de energia",
+                optionA: "Processamento de dados em alta velocidade", optionB: "Garantia de que as tarefas sejam concluídas dentro de prazos específicos", optionC: "Capacidade de executar múltiplos sistemas operacionais", optionD: "Baixo consumo de energia",
                 correctAnswer: "Garantia de que as tarefas sejam concluídas dentro de prazos específicos"
               },
               {
                 question: "Qual é o nome do microcontrolador popularmente usado em projetos de prototipagem e educação?",
-                optionA: "Raspberry Pi",
-                optionB: "Arduino",
-                optionC: "NVIDIA Jetson",
-                optionD: "Intel Edison",
+                optionA: "Raspberry Pi", optionB: "Arduino", optionC: "NVIDIA Jetson", optionD: "Intel Edison",
                 correctAnswer: "Arduino"
               },
               {
                 question: "Qual é a função de um sensor em um dispositivo embarcado?",
-                optionA: "Executar cálculos complexos",
-                optionB: "Armazenar grandes volumes de dados",
-                optionC: "Converter energia elétrica em movimento",
-                optionD: "Detectar e medir grandezas físicas do ambiente",
+                optionA: "Executar cálculos complexos", optionB: "Armazenar grandes volumes de dados", optionC: "Converter energia elétrica em movimento", optionD: "Detectar e medir grandezas físicas do ambiente",
                 correctAnswer: "Detectar e medir grandezas físicas do ambiente"
               }
             ];
@@ -139,7 +109,7 @@ export const populateQuestions = () => {
 
             Promise.all(insertPromises)
               .then(() => {
-                console.log('Perguntas populadas com sucesso!');
+                // console.log('Perguntas populadas com sucesso!'); // REMOVIDO
                 resolve();
               })
               .catch(error => {
@@ -147,7 +117,7 @@ export const populateQuestions = () => {
                 reject(error);
               });
           } else {
-            console.log('Perguntas já existem, não populando novamente.');
+            // console.log('Perguntas já existem, não populando novamente.'); // REMOVIDO
             resolve();
           }
         },
@@ -220,7 +190,7 @@ export const clearQuestions = () => {
         'DELETE FROM questions;',
         [],
         () => {
-          console.log('Todas as perguntas foram removidas.');
+          // console.log('Todas as perguntas foram removidas.'); // REMOVIDO
           resolve();
         },
         (_, error) => {
@@ -239,7 +209,7 @@ export const clearScores = () => {
         'DELETE FROM scores;',
         [],
         () => {
-          console.log('Todos os scores foram removidos.');
+          // console.log('Todos os scores foram removidos.'); // REMOVIDO
           resolve();
         },
         (_, error) => {

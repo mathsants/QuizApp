@@ -1,19 +1,22 @@
-// App.js - na raiz do projeto (CÓDIGO COMPLETO E CORRIGIDO)
+// App.js - na raiz do projeto (CÓDIGO COMPLETO E FINAL)
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, View, StyleSheet, Text, Alert } from 'react-native';
+import { ActivityIndicator, View, StyleSheet, Text, Alert, LogBox } from 'react-native';
 import AppNavigator from './navigation/AppNavigator';
 import { initDatabase, populateQuestions } from './database/database';
-import { registerRootComponent } from 'expo'; // Importação necessária para registrar o componente raiz
+import { registerRootComponent } from 'expo';
 
-export function App() { // Agora é 'export function App' (sem 'default' aqui)
+// LINHA ADICIONADA PARA SUPRIMIR O AVISO "NativeEventEmitter"
+LogBox.ignoreLogs(['new NativeEventEmitter() was called with a non-null argument']);
+
+export function App() {
   const [dbInitialized, setDbInitialized] = useState(false);
 
   useEffect(() => {
     async function initialize() {
       try {
         await initDatabase();
-        console.log("Banco de dados inicializado.");
-        await populateQuestions(); // Popula as perguntas (só se não existirem)
+        // console.log("Banco de dados inicializado."); // REMOVIDO
+        await populateQuestions();
         setDbInitialized(true);
       } catch (err) {
         console.error("Erro ao inicializar o banco de dados:", err);
@@ -44,5 +47,5 @@ const styles = StyleSheet.create({
   },
 });
 
-// IMPORTANTE: Esta linha registra o componente App como o principal do seu aplicativo.
+// Esta linha registra o componente App como o principal do seu aplicativo.
 registerRootComponent(App);

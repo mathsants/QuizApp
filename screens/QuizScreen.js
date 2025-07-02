@@ -1,4 +1,4 @@
-// screens/QuizScreen.js - CÓDIGO COMPLETO E ATUALIZADO
+// screens/QuizScreen.js - CÓDIGO COMPLETO E FINAL (SEM CONSOLE.LOGS)
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, Alert, ActivityIndicator, TouchableOpacity, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -39,25 +39,25 @@ export default function QuizScreen() {
   }, [loadQuestions]);
 
   const handleAnswer = (selectedAnswer) => {
-    console.log("Opção clicada:", selectedAnswer); // Para depuração!
-    console.log("Pontuação atual:", score); // Para depuração!
-    console.log("Pergunta atual:", questions[currentQuestionIndex].question); // Para depuração!
-    console.log("Resposta correta esperada:", questions[currentQuestionIndex].correctAnswer); // Para depuração!
+    // console.log("Opção clicada:", selectedAnswer); // REMOVIDO
+    // console.log("Pontuação atual:", score); // REMOVIDO
+    // console.log("Pergunta atual:", questions[currentQuestionIndex].question); // REMOVIDO
+    // console.log("Resposta correta esperada:", questions[currentQuestionIndex].correctAnswer); // REMOVIDO
 
 
     const currentQuestion = questions[currentQuestionIndex];
     if (selectedAnswer === currentQuestion.correctAnswer) {
       setScore(prevScore => prevScore + 1);
-      console.log("Resposta CORRETA! Nova pontuação:", score + 1); // Para depuração!
+      // console.log("Resposta CORRETA! Nova pontuação:", score + 1); // REMOVIDO
     } else {
-      console.log("Resposta INCORRETA."); // Para depuração!
+      // console.log("Resposta INCORRETA."); // REMOVIDO
     }
 
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
     } else {
       const finalScoreCalculated = score + (selectedAnswer === currentQuestion.correctAnswer ? 1 : 0);
-      console.log("Fim do Quiz! Pontuação final a enviar:", finalScoreCalculated); // Para depuração!
+      // console.log("Fim do Quiz! Pontuação final a enviar:", finalScoreCalculated); // REMOVIDO
       navigation.replace('Result', { finalScore: finalScoreCalculated });
     }
   };
@@ -95,13 +95,14 @@ export default function QuizScreen() {
             style={styles.optionButton}
             onPress={() => handleAnswer(currentQuestion[optionKey])}
           >
+            {/* O TEXTO DA OPÇÃO PRECISA ESTAR DENTRO DE <Text> */}
             <Text style={styles.optionButtonText}>
               {currentQuestion[optionKey]}
             </Text>
           </TouchableOpacity>
         ))}
       </View>
-      <Text style={styles.scoreDisplay}>Pontuação: {score}</Text>
+      <Text style={styles.scoreDisplay}>Score: {score}</Text>
     </View>
   );
 }
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#f0f8ff',
+    backgroundColor: '#E0FFFF', // Exemplo: azul claro pastel para a tela
   },
   loadingContainer: {
     flex: 1,
@@ -120,11 +121,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   questionText: {
-    fontSize: 22,
+    fontSize: 24, // Pergunta um pouco maior
     fontWeight: 'bold',
-    marginBottom: 30,
+    marginBottom: 35,
     textAlign: 'center',
-    color: '#333',
+    color: '#4682B4', // Azul aço para a pergunta
   },
   optionsContainer: {
     width: '80%', // Limita a largura do contêiner de opções
@@ -134,8 +135,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   optionButton: { // Estilos para os botões de opção
-    backgroundColor: '#ADD8E6', // Cor de fundo azul claro
-    paddingVertical: 15, // Aumenta a altura clicável
+    backgroundColor: '#7FFFD4', // Verde água para os botões
+    paddingVertical: 18, // Um pouco mais de padding vertical
     paddingHorizontal: 25, // Aumenta a largura clicável
     borderRadius: 8,
     alignItems: 'center',
@@ -149,14 +150,15 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   optionButtonText: {
-    fontSize: 18,
+    fontSize: 19, // Texto da opção um pouco maior
     fontWeight: 'bold',
-    color: '#333',
+    color: '#2F4F4F', // Cor de texto mais escura
     textAlign: 'center',
   },
   scoreDisplay: {
-    fontSize: 18,
-    marginTop: 20,
-    color: '#666',
+    fontSize: 20, // Pontuação um pouco maior
+    marginTop: 25,
+    color: '#8B0000', // Cor vermelha escura para a pontuação
+    fontWeight: 'bold',
   }
 });
